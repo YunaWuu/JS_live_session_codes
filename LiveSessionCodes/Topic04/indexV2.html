@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using Javascript and CSS</title>
+    <style>
+        .todo-item.finished {
+            background-color: rgb(170, 240, 170);
+        }
+
+        .todo-item.unfinished {
+            background-color: rgb(240, 150, 150);
+        }
+    </style>
+    <script>
+        "use strict";
+    
+        function createList() {
+            let todoList = [
+                {"title" : "Go to Gymn", "finished" : false},
+                {"title" : "Buy eggs", "finished" : true},
+                {"title" : "Walk the dog", "finished" : false},
+                {"title" : "Clean kitchen", "finished" : false},
+                {"title" : "Cook dinner", "finished" : true},
+                {"title" : "Read a book", "finished" : true}
+            ];
+            
+            let htmlString = todoItemList(todoList);
+            console.log(htmlString);
+            let rootElement = document.getElementById("todo-item"); // return the entire element
+            rootElement.innerHTML = htmlString;
+        }
+
+        function todoItemList(todoList) {
+            let htmlStr = ``;
+            // loop thru the array and process each element
+            for (let item of todoList)
+                htmlStr += todoItemListStr(item.title, item.finished);
+            return htmlStr;
+        }
+
+        function todoItemListStr(title, finished) {
+            return `<div class="todo-item ${finished? 'finished': 'unfinished'}">
+            <span>${title}</span>
+            <input type="checkbox" ${finished? "checked": ""} />
+            </div>`; 
+        }
+    </script>
+</head>
+<body onload="createList();">
+    <div id="todo-item">
+    </div>
+</body>
+</html>

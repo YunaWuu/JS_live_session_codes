@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Arrays</title>
+    <script>
+    "use strict";
+
+    class Movie 
+    {
+        constructor(title, year, rating) 
+        {
+            this.title = title;
+            this.year = year;
+            this.rating = rating;
+        }
+        // put more functions specific to an object here
+    }
+
+    // create an array of objects
+    let movieList = [
+        new Movie("doctor strange", 2016, 7.5),
+        new Movie("Iron Man", 2008, 7.9),
+        new Movie("The Avengers", 2012, 8.0),
+        new Movie("Iron Man 2", 2010, 7.0),
+        new Movie("Iron Man 3", 2013, 7.1),
+        new Movie("Thor", 2011, 7.0)
+    ]
+
+    let isFirstLoad = true
+
+    function createNewMovieObject() {
+        let title = document.getElementById("txtTitle").value;
+        let year = document.getElementById("txtYear").value;
+        let rating = document.getElementById("txtRating").value;
+        let newMovie = null;
+
+        title = title.trim();  // removes any white spaces before and after
+
+        if (title == "") {
+            alert("You must enter the title: ");
+            document.getElementById("txtTitle").focus();  // puts cursor into text box
+        }
+        else if (year == "" || isNaN(year) == true) {
+            alert("You must enter a number for the year: ");
+            document.getElementById("txtYear").value = "";
+            document.getElementById("txtYear").focus();
+        }
+        else if (rating == "" || isNaN(rating)) {
+            alert("You must enter a number for the rating: ")
+            document.getElementById("txtRating").value = "";
+            document.getElementById("txtRating").focus();
+        }
+        else 
+            newMovie = new Movie(title, year, rating);
+        return newMovie;
+    }
+
+    // add movie at the end
+    function pushMovie() {
+        let newMovie = createNewMovieObject();
+        if (newMovie != null) 
+            movieList.push(newMovie);
+    }
+
+    // add movie at the beginning
+    function unshiftMovie() {
+        let newMovie = createNewMovieObject();
+        if (newMovie != null) 
+            movieList.unshift(newMovie);
+    }
+
+    // add movie at a certain position - need error check
+    function insertMovie() {
+        let newMovie = createNewMovieObject();
+        if (newMovie != null) {
+            let where = prompt("Which position do you want to insert?");
+            where = parseInt(where);
+            if (where < 0 || where >= movieList.length)
+                alert("That position is out of bounds");
+            else
+                movieList.splice(where, 0, newMovie);   // splice -> (the position want to put in, how many elements to remove from the list, what to insertto the list)
+        }
+    }
+    // remove movie at the end
+    function popMovie() {
+        if (movieList.length == 0) 
+            alert("There is nothing left to remove!");
+        else
+            movieList.pop();
+    }
+
+    // remove movie at the beginning
+    function shiftMovie() {
+        if (movieList.length == 0) 
+            alert("There is nothing left to remove!");
+        else
+            movieList.shift();
+    }
+
+    // remove movie at a certain position - need error check
+    function spliceMovie() {
+        let where = prompt("Which position do you want to delete?");
+        where = parseInt(where);
+        if (where < 0 || where > movieList.length - 1)
+            alert("There is nothing to delete at that position!");
+        else
+            movieList.splice(where, 1); 
+    }
+
+    let where = -1;
+
+    function updateMovie() {
+        where = -1;
+        where = prompt("Which position do you want to update?");
+        console.log(where)
+        where = parseInt(where);
+        if (where < 0 || where > movieList.length - 1)
+            alert("There is nothing to update at that position!");
+        else {
+            document.getElementById("txtTitle").value = movieList[where].title;
+            document.getElementById("txtYear").value = movieList[where].year;
+            document.getElementById("txtRating").value = movieList[where].rating;
+
+             //  show the save button
+            let div1 = document.getElementById("saveDiv");   //  gets the whole div
+            div1.style.display = "block";
+            //  hide the update button
+            let div2 = document.getElementById("updateDiv");   //  gets the whole div
+            div2.style.display = "none";  
+        }
+       
+    }
+
+    function saveMovie() {
+        let title = document.getElementById("txtTitle").value;
+        let year = document.getElementById("txtYear").value;
+        let rating = document.getElementById("txtRating").value;
+        let newMovie = null;
+
+        title = title.trim();  // removes any white spaces before and after
+
+        if (title == "") {
+            alert("You must enter the title: ");
+            document.getElementById("txtTitle").focus();  // puts cursor into text box
+        }
+        else if (year == "" || isNaN(year) == true) {
+            alert("You must enter a number for the year: ");
+            document.getElementById("txtYear").value = "";
+            document.getElementById("txtYear").focus();
+        }
+        else if (rating == "" || isNaN(rating)) {
+            alert("You must enter a number for the rating: ")
+            document.getElementById("txtRating").value = "";
+            document.getElementById("txtRating").focus();
+        }
+        else {
+            movieList[where].title = document.getElementById("txtTitle").value;
+            movieList[where].year = parseInt(document.getElementById("txtYear").value);
+            movieList[where].rating = parseFloat(document.getElementById("txtRating").value);
+
+            //  show the save button
+            let div1 = document.getElementById("saveDiv");   //  gets the whole div
+            div1.style.display = "block";
+            //  hide the update button
+            let div2 = document.getElementById("updateDiv");   //  gets the whole div
+            div2.style.display = "none"; 
+        }       
+    }
+
+    function sortByMovieTitle() {
+        movieList.sort(function(a,b){
+            return a.title.localeCompare(b.title);  //  sort in ascending order
+            // return b.title.localeCompare(a.title);  //  sort in descending order
+        })
+    }
+
+    function sortByMovieYear() {
+        movieList.sort(function(a,b){
+            return b.year - a.year;   //  sort in descending order
+            // return a.year - b.year  //  sort in asending order
+        })
+    }
+
+    function searchMovie() {
+        //  binary search: must sort the movie first
+        let searchFor = prompt("Enter the name of the movie to search for: ");
+        let found = false;
+
+        for(let i = 0; i < movieList.length; i++) {
+            if(searchFor == movieList[i].title) {
+                found = true;
+                break;  // only break out if you are looking for one find
+            }
+        }
+
+        if(found)   // if (found == true)
+            alert("Movie found!");
+        else
+            alert("Movie NOT found!");
+    }
+    
+    </script>
+</head>
+<body onload="displayMovies();">
+    <p id="movies"></p>
+    <br />
+    <label for="txtTitle">Enter movie title: </label>
+    <input type="text" id="txtTitle" /><br /><br />
+    <label for="txtYear">Enter year released: </label>
+    <input type="text" id="txtYear" /><br /><br />
+    <label for="txtRating">Enter rating: </label>
+    <input type="text" id="txtRating" /><br /><br />
+    <br /><br />
+    <button type="button" onclick="pushMovie();displayMovies();">Add a movie to the end</button>
+    <br /><br />
+    <button type="button" onclick="unshiftMovie();displayMovies();">Add a movie to the beginning</button>
+    <br /><br />
+    <button type="button" onclick="insertMovie();displayMovies();">Add a movie at a certain position</button>
+    <br /><br />
+    <button type="button" onclick="popMovie();displayMovies();">Remove a movie at the end</button>
+    <br /><br />
+    <button type="button" onclick="shiftMovie();displayMovies();">Remove a movie at the beginning</button>
+    <br /><br />
+    <button type="button" onclick="spliceMovie();displayMovies();">Remove a movie at a certain position</button>
+    <div id="updateDiv">
+        <br /><br />
+        <button type="button" onclick="updateMovie();displayMovies();">Update a movie at a certain position</button>
+    </div>
+    <div id="saveDiv">
+        <br /><br />
+        <button type="button" onclick="saveMovie();displayMovies();">Save updates</button>
+    </div>
+    <br /><br />
+    <button type="button" onclick="sortByMovieTitle();displayMovies();">Sort by movie title</button>
+    <br /><br />
+    <button type="button" onclick="sortByMovieYear();displayMovies();">Sort by movie year</button>
+    <br /><br />
+    <button type="button" onclick="searchMovie();">Search for a movie</button>
+
+    <script>
+        function displayMovies() {
+            //  hide the save button
+            if (isFirstLoad) {
+                let div = document.getElementById("saveDiv");   // gets the whole div
+                div.style.display = "none";
+                isFirstLoad = false
+            }
+
+            let str = "";
+            for(let i = 0; i < movieList.length; i++) 
+                 str += i + ": " + movieList[i].title + " " + movieList[i].year + " " + movieList[i].rating + "<br>";
+                //str += i + ": " + JSON.stringify(movieList[i]) + "<br>";
+            console.log (str)
+            document.getElementById("movies").innerHTML = str;
+        }
+
+    </script>   
+</body>
+</html>

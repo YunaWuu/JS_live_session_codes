@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial 1</title>
+</head>
+<body>
+    <p id="ans">My name</p>
+    <button onclick="myFunc();">Click Me!</button>
+    <br><br>
+    <button onclick="myName();">Display my name!</button>
+    <br><br>
+    <button onclick="myNumbers();">Display numbers!</button>
+ <script>
+// document.writeln("Hello World!");
+// console.log("Boo Hoo");
+ function myFunc() 
+ {
+    document.getElementById("ans").innerHTML="Hello World!";
+   // window.alert('boo!');  // alert, we can not change its apperance
+   // var ans = confirm("do you wish to continue?");  // OK/Cancle - return true/false
+   // alert(ans);
+
+    let num1 = prompt("Enter a numner:");
+    let num2 = prompt("Enter another numner:");
+    num1 = parseInt(num1); // explicitly convert variable to a number
+    num2 = parseFloat(num2); 
+    let ans = num1 - num2;
+    alert(ans);
+ }
+
+ function myNumbers() {
+    let num1 = 5;
+    let num2 = 8;
+
+   // let ans = ++num1 + num2++;
+    let ans = --num1 + num2--;
+    alert(ans);
+ }
+ </script>   
+ <script type="text/javascript" src="myJS.js"></script>
+</body>
+</html>

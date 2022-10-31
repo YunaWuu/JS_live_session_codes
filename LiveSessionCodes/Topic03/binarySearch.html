@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Search Example</title>
+</head>
+<body>
+    <p id="myArr"></p>
+    <label for="txtInput">Enter a value to search for: </label>
+    <input id="txtInput" onclick="binarySearchWhile();">
+    <br><br>
+    <button type="button" onclick="binarySearchWhile();">Do Binary Search While</button><br><br>
+    <button type="button" onclick="doBinarySearch();">Do Binary Search Recursive</button>
+    <p id="myAns"></p>
+
+
+
+    <script>
+        "use strict";
+        // global array
+        const arr = [100, 50, 40, 120, 60, 2, 7];  // odd number of elements
+        // sort the array in ascending order
+        arr.sort(function(a, b){return a - b});
+
+        function binarySearchWhile() {
+            // get the value I am looking for
+            let targetValue = document.getElementById("txtInput").value;
+            // anything entered in a text is a string - convert it to a number
+            targetValue = parseFloat(targetValue);
+            // base conditions
+            let start = 0, end = arr.length - 1;
+            let index = -1;   // flag
+
+            while(start <= end) {
+                // find the middle point
+                let mid = Math.floor((start + end) / 2);
+
+                // see if value is at middle point
+                if(arr[mid] == targetValue) {
+                    index = mid;
+                    break;
+                }
+
+                // otherwise - look either left or right
+                else if(arr[mid] < targetValue) {
+                    // look right
+                    start = mid + 1;
+                }
+
+                else  // look left
+                end = mid - 1;
+            }
+            document.getElementById("myAns").innerHTML = index;
+        }
+
+        function doBinarySearch() {
+            // get the value I am looking for
+            let targetValue = document.getElementById("txtInput").value;
+            // anything entered in a text is a string - convert it to a number
+            targetValue = parseFloat(targetValue);
+
+            if(binarySearchRecursive(arr, targetValue, 0, arr.length - 1)) {
+                document.getElementById("myAns").innerHTML = "Element Found!";
+            }
+
+            else 
+            document.getElementById("myAns").innerHTML = "Element NOT Found!";
+        }
+
+        function binarySearchRecursive(theArr, targetValue, start, end) {
+            //  base conditions
+            if(start > end) {
+                return false;
+            }
+            // find middle element
+            let mid = Math.floor((start + end) / 2);
+
+            // compare the middle element with targetvalue
+            if(theArr[mid] === targetValue) {
+                // if found - true
+                return true;
+            }
+            else if(theArr[mid] > targetValue) {
+                console.log("searching left");
+                return binarySearchRecursive(theArr, targetValue, start, mid - 1);
+            }
+            else {
+                console.log("searching right");
+                return binarySearchRecursive(theArr, targetValue, mid + 1, end);
+        }
+        }
+
+        document.getElementById("myArr").innerHTML = arr;
+    </script>
+</body>
+</html>

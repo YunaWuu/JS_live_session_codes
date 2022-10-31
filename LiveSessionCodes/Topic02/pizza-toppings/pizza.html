@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Toppings</title>
+    <link rel="stylesheet" href="pizza.css">
+</head>
+<body>
+    <h2>Customize Pizza Topping</h2>
+
+    <div>
+        <button type="button" onclick="selectNoneClick();">Select None</button>
+        <button type="button" onclick="selectAllClick();">Select All</button>
+    </div>
+    
+    <div class="multi-select-list">
+        <div onclick="listItemClick(this);" class="list-item">Beef Brisket</div>
+        <div onclick="listItemClick(this);" class="list-item selected">Camembert Cheese</div>
+        <div onclick="listItemClick(this);" class="list-item">Indian Butter Sauce</div>
+        <div onclick="listItemClick(this);" class="list-item selected">Seasoned Chicken</div>
+        <div onclick="listItemClick(this);" class="list-item selected">Pineapple</div>
+        <div onclick="listItemClick(this);" class="list-item">Mushroom</div>
+        <div onclick="listItemClick(this);" class="list-item selected">Olives</div>
+        <div onclick="listItemClick(this);" class="list-item">Red Onion</div>
+        <div onclick="listItemClick(this);" class="list-item selected">Tomato</div>
+    </div>
+
+    <script src="pizza.js"></script>
+
+</body>
+</html>

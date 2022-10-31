@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using Javascript and CSS</title>
+    <style>
+        .todo-item.finished {
+            background-color: rgb(170, 240, 170);
+        }
+
+        .todo-item.unfinished {
+            background-color: rgb(240, 150, 150);
+        }
+    </style>
+
+</head>
+<body onload="createList();">
+    <div id="todo-item"></div>
+    <div>
+        <button type="button" onclick="addItem();">Add item</button><br><br>
+        <button type="button" onclick="updateItem();">Update item</button><br><br>
+        <button type="button" onclick="deleteItem();">Delete item</button><br><br>
+    </div>
+    <script src="classTodoList.js"></script>
+    <script src="myJS.js"></script>
+</body>
+</html>
