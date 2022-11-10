@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Checking Example</title>
+    <script>
+        "use strict";
+        function doCheck() {
+            // get values from the page
+            let name = document.getElementById("txtName").value;
+            let age = document.getElementById("txtAge").value;
+            let msg = "";
+
+            // remove the white space
+            name = name.trim();
+            age = age.trim();
+
+            if(name == "") {
+                msg += "You must enter your name!"
+                document.getElementById("txtName").focus();
+            }
+            else if(age == "") {
+                msg += "You must enter your age!"
+                document.getElementById("txtAge").focus();
+            }
+            else if(isNaN(age) == true) {
+                msg += "You must enter a number for your age!"
+                document.getElementById("txtAge").value = "";
+                document.getElementById("txtAge").focus();
+            }
+            else
+                msg = `Hello ${name}! You are ${age} years old...`;
+
+            document.getElementById("msg").innerHTML = msg;
+        }
+
+
+        
+        function doCheckV2() {
+            // using regular expressions
+            let regName = /[A-Z | a-z]+?/;
+            let regAge = /\d{1,3}/;
+            // get values from the page
+            let name = document.getElementById("txtName").value;
+            let age = document.getElementById("txtAge").value;
+            let msg = "";
+
+            // remove the white space
+            name = name.trim();
+            age = age.trim();
+
+            if(regName.test(name) != true) {
+                msg += "You must enter your name using letters!"
+                document.getElementById("txtName").value = "";
+                document.getElementById("txtName").focus();
+            }
+            else if(regAge.test(age) != true) {
+                msg += "You must enter a number for your age!"
+                document.getElementById("txtAge").value = "";
+                document.getElementById("txtAge").focus();
+            }
+            else if(isNaN(age) == true) {
+                msg += "You must enter a number for your age!"
+                document.getElementById("txtAge").value = "";
+                document.getElementById("txtAge").focus();
+            }
+            else
+                msg = `Hello ${name}! You are ${age} years old...`;
+
+            document.getElementById("msg").innerHTML = msg;
+        }
+    </script>
+</head>
+<body>
+    <form action="">
+        <label for="txtName">Enter your name: </label>
+        <input type="text" id="txtName">
+        <br><br>
+        <label for="txtAge">Enter your age: </label>
+        <input type="text" id="txtAge"><br>
+        <p id="msg"></p>
+        <br><br>
+        <button type="button" onclick="doCheckV2();">Check me</button>
+    </form>
+</body>
+</html>
