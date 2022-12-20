@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part 2</title>
+</head>
+<body onload="displayStudentList();">
+    <p id="students"></p>
+    <br><br>
+    <p>Sort the student list in ascending order by student ID: </p>
+    <button type="button" onclick="sortByStudentID();displayStudentList();">Sort</button>
+    <br><br><br>
+    <p>Search for a student by Student ID: </p>
+    <label for="txtSearch">Enter a student ID to search for: </label>
+    <input type="text" id="txtSearch">
+    <br><br>
+    <button type="button" onclick="searchStudent();">Search</button>
+    <p id="ans"></p>
+ 
+    <script src="part2.js"></script>  
+</body>
+</html>

@@ -1,0 +1,28 @@
+
+
+.section {
+    margin: 50px 0;
+}
+
+.list{
+    border: 1px solid #9e9e9e;
+    margin: 10px 900px 20px 0;
+}
+
+.list .row{
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.list .row:nth-child(odd){
+    background-color: #dddddd; 
+}
+
+button{
+    cursor: pointer;
+}
+
+.list .row:hover, button:hover {
+    background-color: #344D67;
+    transition: background-color 200ms;
+}
